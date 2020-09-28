@@ -1,0 +1,203 @@
+<div class="mb-2">
+
+  <div class="row">
+    <div class="nav flex-column nav-pills col-md-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+        aria-controls="v-pills-home" aria-selected="true">Add New Questions</a>
+      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+        aria-controls="v-pills-profile" aria-selected="false" (click)="getQuestionsL('L1')">Level 1</a>
+      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+        aria-controls="v-pills-messages" aria-selected="false" (click)="getQuestionsL('L2')">Level 2</a>
+      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+        aria-controls="v-pills-settings" aria-selected="false" (click)="getQuestionsL('L3')">Level 3</a>
+    </div>
+
+    <!-- <div class="tab-content col-md-8 d-inline " id="v-pills-tabContent">
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <div class="my-3 p-3 bg-white rounded shadow-sm">
+          <h6 class="border-bottom border-gray pb-2 mb-0">Questions</h6>
+
+
+        </div> -->
+
+    <div class="col-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          <div class="card">
+            <div class="card-header">
+              Question
+            </div>
+            <div class="card-body">
+              <form novalidate [formGroup]="addQuestionForm" (ngSubmit)="save()">
+                <div class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" for="name">Level</label>
+                  <div class="col-md-8">
+                    <input class="form-control" id="level" type="text" placeholder="Level (required)"
+                      formControlName="level"
+                      [ngClass]="{'is-invalid': (f.level.touched || f.level.dirty) &&  !f.level.valid } " />
+                    <div *ngIf="!f.level.valid" class="invalid-feedback">
+                      <div *ngIf="f.level.errors.required">Please enter Level</div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" for="questionNo">Question No</label>
+                  <div class="col-md-8">
+                    <input class="form-control" id="questionNo" type="number" placeholder="Question (required)"
+                      formControlName="questionNumber"
+                      [ngClass]="{'is-invalid': (f.questionNumber.touched || f.questionNumber.dirty) &&  !f.questionNumber.valid } " />
+                    <div *ngIf="!f.questionNumber.valid" class="invalid-feedback">
+                      <div *ngIf="f.questionNumber.errors.required">Please enter Question No</div>
+                      <div *ngIf="f.questionNumber.errors.min">Minimum one</div>
+                      <div *ngIf="f.questionNumber.errors.max">Maximum less than 25</div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" for="question">Question</label>
+                  <div class="col-md-8">
+                    <input class="form-control" id="question" type="text" placeholder="Question (required)"
+                      formControlName="question"
+                      [ngClass]="{'is-invalid': (f.question.touched || f.question.dirty) &&  !f.question.valid } " />
+                    <div *ngIf="!f.question.valid" class="invalid-feedback">
+                      <div *ngIf="f.question.errors.required">Please enter Question</div>
+                    </div>
+
+                  </div>
+                </div>
+                <div formArrayName="formOptions">
+                  <div class="form-group row mb-2" *ngFor="let option of options.controls; index as ix">
+                    <label class="col-md-2 col-form-label" for="option">{{arrayOfOptions[ix]}} </label>
+                    <div class="col-md-8">
+                      <input class="form-control" id="option" type="text" placeholder="" [formControlName]="ix" />
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row mb-2">
+                  <label class="col-md-2 col-form-label" for="answer">Correct Option</label>
+                  <div class="col-md-8">
+                    <input class="form-control" id="answer" type="text" placeholder="Answer (required)"
+                      formControlName="correctAnswer"
+                      [ngClass]="{'is-invalid': (f.correctAnswer.touched || f.correctAnswer.dirty) &&  !f.correctAnswer.valid } " />
+                    <div *ngIf="!f.correctAnswer.valid" class="invalid-feedback">
+                      <div *ngIf="f.correctAnswer.errors.required">Please enter Correct Answer</div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="form-group row mb-2">
+                  <div class="mr-auto col-md-4">
+                    <button class="btn btn-primary mr-3" style="width:80px;" [routerLink]="['/topicpage/0']">
+                      Back
+                    </button>
+                    <button class="btn btn-outline-secondary mr-3" style="width:100px;" type="submit"
+                      [title]="addQuestionForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                      [disabled]="!addQuestionForm.valid">
+                      Add
+                    </button>
+                  </div>
+                </div>
+
+
+
+              </form>
+
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Level 1 Questions</h6>
+            <div class="media text-muted pt-3" *ngFor="let random of data1 | paginate: {id: 'listing_pagination',
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: totalRecords}">
+              
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+
+                {{random.questionNumber}} {{random.question}}<br>
+
+                {{random.options}} <br>
+                Correct Option: {{random.answer}}
+
+
+              </p>
+
+            </div>
+
+          </div>
+          <small class="d-block text-right mt-3">
+            <pagination-controls id="listing_pagination" maxsize="5" directionLinks ="true" (pageChange)="page=$event"></pagination-controls>
+          </small>
+
+
+
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+          <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Level 2 Questions</h6>
+            <div class="media text-muted pt-3" *ngFor="let random of data1 | paginate: {id: 'listing_pagination',
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: totalRecords}">
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                
+                {{random.questionNumber}} {{random.question}}<br>
+
+                {{random.options}} <br>
+                {{random.answer}}
+
+
+              </p>
+
+            </div>
+
+          </div>
+          <small class="d-block text-right mt-3">
+            <pagination-controls id="listing_pagination" maxsize="5" directionLinks="true" (pageChange)="page=$event">
+            </pagination-controls>
+          </small>
+
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Level 3 Questions</h6>
+            <div class="media text-muted pt-3" *ngFor="let random of data1 | paginate: {id: 'listing_pagination',
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: totalRecords}">
+              <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                
+                {{random.questionNumber}} {{random.question}}<br>
+
+                {{random.options}} <br>
+                {{random.answer}}
+
+              </p>
+
+            </div>
+
+          </div>
+          <small class="d-block text-right mt-3">
+            <pagination-controls id="listing_pagination" maxsize="5" directionLinks="true" (pageChange)="page=$event">
+            </pagination-controls>
+          </small>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

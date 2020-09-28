@@ -1,0 +1,82 @@
+<body>
+
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>Topics</h1>
+                <p class="lead text-muted">Topics for different tests. Each test has three levels and each levels has 25 questions.</p>
+                <p>
+                    <a class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add New Topic</a>
+
+                </p>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <div class="card-header">
+                    Add Topic
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="submitForm" (ngSubmit)="addTopic()">
+                        <div class="form-group row mb-2">
+                            <label class="col-md-2 col-form-label" for="topicAd">Topic Name</label>
+                            <input type="text" id="topicAd" formControlName= "topicAdded"/>
+                            <button class="btn btn-primary mr-3" style="width:80px;" type="submit">
+                                Submit
+                            </button>
+                        </div>
+                        
+                    </form>
+                </div>   
+                    
+                
+            </div>
+
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4" *ngFor= "let topic of topics">
+                        <div class="card mb-4 shadow-sm">
+                            
+                             <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                                <title>{{topic.Name}}</title>
+                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+                                    dy=".3em">{{topic.topicName}}</text>
+                            </svg> 
+                            <div class="card-body">
+                                <p class="card-text">Basic, Intermediate and Advanced Tests</p>
+                                <p class="card-text">Click on View to see the questions</p>
+                                <p class="card-text">Click on Edit to add/edit the questions</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/topicpage', topic.topicName ]">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" [routerLink]="['/topicpage', topic.topicName ]">Edit</button>
+                                    </div>
+                                    <small class="text-muted">Three Levels</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+
+    <footer class="text-muted">
+        <div class="container">
+            
+                <a href="#">Back to top</a>
+            </div>  
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+    <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+</body>

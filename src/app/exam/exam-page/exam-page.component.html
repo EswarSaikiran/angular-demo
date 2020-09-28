@@ -1,0 +1,126 @@
+<main role="main" class="container-fluid mh-75">
+  <div class="card " id="rid" *ngIf="!idbox">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <form [formGroup]="registration" (ngSubmit)="submit()">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="registrationId">Registration ID</label>
+          <input type="text" id="registrationId" formControlName="id" />
+          <button class="btn btn-primary mr-3" style="width:80px;" type="submit">
+            Submit
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+
+  <div class="jumbotron" *ngIf="idbox&&exampage">
+    <div class="container">
+      <h1 class="display-3">{{topic}}</h1>
+      <p>Click on the Level you want to give test</p>
+      <div>
+        <button type="button" id="btnL1" class="btn btn-outline-primary" (click)="getQuestionsL1('L1')">Level 1</button>
+
+        <button type="button" id="btnL2" class="btn btn-outline-primary" (click)="getQuestionsL1('L2')">Level 2</button>
+        <button type="button" id="btnL3" class="btn btn-outline-primary" (click)="getQuestionsL1('L3')">Level 3</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+
+    <div class="container mh-100" *ngIf="!exampage">
+      <div class="row">
+        <div class="col-md-8">
+
+          <div class="card" *ngFor="let random of questions | paginate: {id: 'listing_pagination',
+        itemsPerPage: 1,
+        currentPage: page,
+        totalItems: totalRecords}">
+            <div class="card-header">
+              {{random.questionNumber}}.{{random.question}}<br>
+
+            </div>
+            <div class="card-body">
+              <form #form1>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="choices{{i}}" id="optionAvailable"
+                    [value]="choiceA" (change)="onSelectionChange(choiceA, random.questionNumber)">
+                  <label class="form-check-label" for="optionAvailable">
+                    {{random.option1}}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="choices{{i}}" id="optionAvailable"
+                    [value]="choiceB" (change)="onSelectionChange(choiceB,random.questionNumber)">
+                  <label class="form-check-label" for="optionAvailable">
+                    {{random.option2}}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="choices{{i}}" id="optionAvailable"
+                    [value]="choiceC" (change)="onSelectionChange(choiceC, random.questionNumber)">
+                  <label class="form-check-label" for="optionAvailable">
+                    {{random.option3}}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="choices{{i}}" id="optionAvailable"
+                    [value]="choiceD" (change)="onSelectionChange(choiceD, random.questionNumber)">
+                  <label class="form-check-label" for="optionAvailable">
+                    {{random.option4}}
+                  </label>
+                </div>
+
+              </form>
+
+
+
+
+
+            </div>
+          </div>
+
+
+          <pagination-controls class="hide-page-numbers d-inline" id="listing_pagination" size="lg" maxsize="1"
+            (pageChange)="page=$event" directionLinks="true" autoHide="true" responsive="true">
+          </pagination-controls>
+
+          <button type="button" class="btn btn-outline-secondary d-inline" type="submit" (click)="save()">Finish and
+            Submit</button>
+
+
+
+
+        </div>
+        <div class="col-md-4" *ngIf="!exampage">
+          <div class="card">
+            <div class="card-header">
+              Questions
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="scroll_text">
+                  <pagination-controls id="listing_pagination" size="lg" maxsize="10" (pageChange)="page=$event"
+                    directionLinks="false" autoHide="true" responsive="true">
+                  </pagination-controls>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>

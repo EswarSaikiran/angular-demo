@@ -1,0 +1,92 @@
+<main role="main">
+
+  <div class="card" id="rid" *ngIf="!idbox">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <form [formGroup]="registration" (ngSubmit)="submit()">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="registrationId">Registration ID</label>
+          <input type="text" id="registrationId" formControlName="id" />
+          <button class="btn btn-primary mr-3" style="width:80px;" type="submit">
+            Submit
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+
+
+  <div class="jumbotron" *ngIf="idbox">
+    <div class="container">
+      <h1 class="display-3">{{topic}}</h1>
+      <p>Check marks based on level</p>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="d-inline">
+            <button type="button" id="btnL1" class="btn btn-outline-primary" (click)="getReportL1('L1')">Level
+              1</button>
+            <button type="button" id="btnL2" class="btn btn-outline-primary" (click)="getReportL1('L2')">Level
+              2</button>
+            <button type="button" id="btnL3" class="btn btn-outline-primary" (click)="getReportL1('L3')">Level
+              3</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div *ngIf="giftBox" class="d-inline">
+            <div class="col-md-4">
+              <label for="gifts">Select Gift</label>
+              <select id="gifts" class="form-control" [(ngModel)]="choosenGift">
+                <option selected>Choose...</option>
+                <option *ngFor="let gift of giftList">{{gift.gift}} sponsored by {{gift.sponsor}}</option>
+              </select>
+              <button type="button" id="gift" class="btn btn-outline-primary" (click)="sendGift()">Submit</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div>
+    <table class="table table-striped" *ngIf="idbox">
+      <thead>
+        <tr>
+          <th scope="col">Level</th>
+          <th scope="col">Marks</th>
+          <th scope="col">No of Correct Answers</th>
+          <th scope="col">No Of Wrong Answers</th>
+          <th scope="col">Knowledge Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of reports;let i=index">
+          <td><a href="" class="myDIV"> {{d.markcomp.level}}</a>
+            <div class="hide">Click to download certificate.</div></td>
+
+          <td>{{d.marks}}</td>
+          
+
+          <td>{{d.correctAnswers}}</td>
+          <td>{{d.wrongAnswers}}</td>
+          <td>{{d.knowledgeLevel}}</td>
+        </tr>
+        <tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+
+  </div>
+
+
+
+</main>

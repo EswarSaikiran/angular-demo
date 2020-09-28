@@ -1,0 +1,46 @@
+<!-- Custom styles for this template -->
+<link href="home-page.component.css" rel="stylesheet">
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Brain Train</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" *ngIf="!currentUser">
+                    <a class="nav-link"  [routerLink] ="['/exam']" >Take Exam</a>
+                </li>
+                <li class="nav-item" *ngIf="!currentUser">
+                    <a class="nav-link" [routerLink] ="['/report']" >My Assessment</a>
+                </li>
+                <li class="nav-item" *ngIf="!currentUser">
+                    <a class="nav-link" [routerLink]="['/registration']">Register for Exam</a>
+                </li>
+                <li class="nav-item" *ngIf="currentUser">
+                    <a class="nav-link" >Create Topic</a>
+                </li>
+                <li class="nav-item" *ngIf="currentUser">
+                    <a class="nav-link" href="#">Create Questions</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" *ngIf="!currentUser" (click)="login()">Admin Login</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" *ngIf="currentUser">Profile</button>
+        </div>
+    </nav>
+
+    
+    <div *ngIf="!al" >
+    <app-login-page (valueChange)='afterLogin($event)'></app-login-page>
+    </div>
+
+    <router-outlet></router-outlet>
+
+    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+    <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+</body>

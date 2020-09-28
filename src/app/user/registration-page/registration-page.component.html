@@ -1,0 +1,145 @@
+<div class="card">
+    <div class="card-header">
+        Register
+    </div>
+
+    <div class="card-body">
+        <form novalidate [formGroup]="registrationForm" (ngSubmit)="save()">
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="name">Name</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="name" type="text" placeholder="Name (required)"
+                        formControlName="name"
+                        [ngClass]="{'is-invalid': (f.name.touched || f.name.dirty) &&  !f.name.valid } " />
+                        <div *ngIf="!f.name.valid" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Please enter name</div>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="age">Age</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="age" type="number" placeholder="Age" formControlName="age"
+                        [ngClass]="{'is-invalid': (f.age.touched || f.age.dirty) && !f.age.valid }" />
+                        <div *ngIf="!f.age.valid" class="invalid-feedback">
+                            <div *ngIf="f.age.errors.required">Please enter age</div>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="qualification">Qualification</label>
+                <div class="col-md-8">
+                    <input class="form-control" formControlName="qualification" id="qualification" type="text"
+                        placeholder="Qualification"
+                        [ngClass]="{'is-invalid': (f.qualification.touched || f.qualification.dirty) && !f.qualification.valid }" />
+                        <div *ngIf="!f.qualification.valid" class="invalid-feedback">
+                            <div *ngIf="f.qualification.errors.required">Please enter qualification</div>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="quiz">Interested Quiz</label>
+                <div class="col-md-8">
+                    
+                        <select id="quiz" class="form-control" formControlName="quiz"
+                        [ngClass]="{'is-invalid': (f.quiz.touched || f.quiz.dirty) && !f.quiz.valid }" >
+                            <option selected>Choose...</option>
+                          <option *ngFor ="let topic of quizTopics; let ix =index">{{topic.topicName}}</option>
+                          
+                        </select>
+                        <div *ngIf="!f.quiz.valid" class="invalid-feedback">
+                            <div *ngIf="f.quiz.errors.required">Please enter quiz</div>
+                        </div>
+                      
+                    <!-- <input class="form-control" formControlName="quiz" id="quiz" type="text" placeholder="Quiz (required)"
+                        [ngClass]="{'is-invalid': (f.quiz.touched || f.quiz.dirty) && !f.quiz.valid }" />
+                        <div *ngIf="!f.quiz.valid" class="invalid-feedback">
+                            <div *ngIf="f.quiz.errors.required">Please enter quiz</div>
+                        </div> -->
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="phoneId">Phone</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="phoneId" type="tel" placeholder="Phone" formControlName="contact"
+                        [ngClass]="{'is-invalid': (f.contact.touched || f.contact.dirty) &&  !f.contact.valid }" />
+                        <div *ngIf="!f.contact.valid" class="invalid-feedback">
+                            <div *ngIf="f.contact.errors.required">Please enter Phone Number</div>
+                            <div *ngIf="f.contact.errors.maxLength">Maximum 10 digits </div>
+                        </div>
+                </div>
+            </div>
+            <div formGroupName="address">
+                <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" for="address1">Street Address 1</label>
+                    <div class="col-md-8">
+                        <input class="form-control" id="address1" type="text" placeholder="Street address (required)"
+                            formControlName="street1" [ngClass]="{'is-invalid': (a.get('street1').touched || 
+                            a.get('street1').dirty) && 
+                                                !a.get('street1').valid }">
+                                                <div *ngIf="!a.get('street1').valid" class="invalid-feedback">
+                                                    <div *ngIf="a.get('street1').errors.required">Please enter Street</div>
+                                                </div>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-2">
+                    <label class="col-md-2 col-form-label" for="address2">Street Address 2</label>
+                    <div class="col-md-8">
+                        <input class="form-control" id="address2" type="text" placeholder="Street address (second line)"
+                            formControlName="street2">
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <div class="col-md-2"></div>
+                <div class="form-group row col-md-8">
+                    
+                    <div class="col-md-4">
+                        <label class=" col-form-label" for="city">City</label>
+                        <input class="form-control" id="city" type="text" placeholder="City" formControlName="city">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class=" col-form-label" for="state">State</label>
+                        <input class="form-control" id="state" type="text" placeholder="State" formControlName="state">
+                        <!-- <select class="form-control" id="{{'stateId' + i}}" formControlName="state">
+                        <option value="" disabled selected hidden>Select a State...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select> -->
+                    </div>
+                    <div class="col-md-4">
+                        <label class=" col-form-label" for="pin">PIN Code</label>
+                        <input class="form-control" id="pin" type="text" placeholder="PIN Code" formControlName="pincode">
+                    </div>
+                </div>
+
+                    
+                </div>
+             
+            </div>
+
+            <div class="form-group row mb-2">
+                <div class="mr-auto col-md-4">
+                    <button class="btn btn-primary mr-3" style="width:80px;" [routerLink]="['']">
+                        Back
+                    </button>
+                    <button class="btn btn-outline-secondary mr-3" style="width:100px;" type="submit"
+                        [title]="registrationForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                        [disabled]="!registrationForm.valid">
+                        Register
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
